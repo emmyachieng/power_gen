@@ -1,0 +1,9 @@
+<h1>Upload file</h1>
+<%= form_for @conn, Routes.customer_path(@conn, :import), [multipart: true], fn f -> %>
+  <%= file_input f, :csv, accept: ".csv", required: true %>
+  <div>
+    <%= submit "Import customer records" %>
+  </div>
+<% end %>
+
+<span><%= link "Back", to: Routes.customer_path(@conn, :index) %></span>

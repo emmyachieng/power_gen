@@ -1,0 +1,38 @@
+<h1>Show Customer</h1>
+
+<ul>
+
+  <li>
+    <strong>Name:</strong>
+    <%= @customer.name %>
+  </li>
+
+  <li>
+    <strong>Date of birth:</strong>
+    <%= @customer.date_of_birth %>
+  </li>
+
+  <li>
+    <strong>Telephone number:</strong>
+    <%= @customer.telephone_number %>
+  </li>
+
+  <li>
+    <strong>Id number:</strong>
+    <%= @customer.id_number %>
+  </li>
+
+  <li>
+    <strong>Country:</strong>
+    <%= @customer.country_id %>
+  </li>
+
+  <li>
+    <strong>Site:</strong>
+    <%= @customer.site_id %>
+  </li>
+
+</ul>
+
+<span><%= link "Edit", to: Routes.customer_path(@conn, :edit, @customer) %></span> |
+<span><%= link "Back", to: Routes.customer_path(@conn, :index) %></span>

@@ -18,6 +18,8 @@ defmodule PowerGenWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :index
+    resources "/customers", CustomerController
+    post "/customers-import", CustomerController, :import
   end
 
   # Other scopes may use custom stacks.
