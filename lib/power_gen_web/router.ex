@@ -17,8 +17,8 @@ defmodule PowerGenWeb.Router do
   scope "/", PowerGenWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
-    resources "/customers", CustomerController
+    get "/", CustomerController, :new
+    resources "/customers", CustomerController, except: [:new]
     post "/customers-import", CustomerController, :import
   end
 

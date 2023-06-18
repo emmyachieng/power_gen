@@ -17,6 +17,6 @@ defmodule PowerGen.Data.Customer do
   def changeset(customer, attrs) do
     customer
     |> cast(attrs, [:name, :date_of_birth, :telephone_number, :id_number, :country_id, :site_id])
-    |> validate_required([:name, :date_of_birth, :telephone_number, :id_number, :country_id, :site_id])
+    |> validate_required([:name, :date_of_birth, :telephone_number, :country_id, :site_id])
   end
 end

@@ -36,21 +36,12 @@ defmodule PowerGen.Data do
       for {key, val} <- data, into: %{}, do: {String.to_atom(key), val}
   end
 
-  def parse_fields(customer) do
-      timestamp =
-        NaiveDateTime.utc_now()
-        |> NaiveDateTime.truncate(:second)
-    customer
-      |> Map.put("inserted_at", timestamp)
-      |> Map.put("updated_at", timestamp)
-  end
-
   def insert_customers(items) do
-    Customer
-    |> Repo.insert_all(items,
-      on_conflict: :nothing,
-      returning: true
-    )
+    Enum.map(items, fn item ->
+      %Customer{}
+      |> Customer.changeset(item)
+      |> Repo.insert()
+    end)
   end
 
   @doc """

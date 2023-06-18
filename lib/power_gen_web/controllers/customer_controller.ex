@@ -77,13 +77,31 @@ defmodule PowerGenWeb.CustomerController do
   end
 
   defp import_customers(data) do
-    customers = Enum.map(data, fn {:ok, customer} -> parse(customer) end)
-    params = Data.convert_params(customers)
-    {_, _} = Data.insert_customers(params)
+    customers = Enum.map(data, fn {:ok, customer} -> customer end)
+    params =
+      customers
+      |>  Data.convert_params()
+      |> create_customer_params()
+    Data.insert_customers(params)
   end
 
-  defp parse(customer) do
-    Data.parse_fields(customer)
+  defp create_customer_params(params) do
+    Enum.map(params, fn param ->
+      %{
+        country_id: String.to_integer(param.country_id),
+        id_number: param.id_number,
+        name: param.name,
+        site_id: String.to_integer(param.site_id),
+        telephone_number: param.telephone_number,
+        date_of_birth: parse_dob(param.date_of_birth)
+      }
+    end)
+  end
+
+  defp parse_dob(dob) do
+    [dd, mm, yyyy] = String.split(dob, "-")
+    {:ok, date} = Date.from_iso8601("#{yyyy}-#{mm}-#{dd}")
+    date
   end
 
 end
